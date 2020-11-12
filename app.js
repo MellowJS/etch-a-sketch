@@ -24,14 +24,16 @@ function makeGrid(rows, cols) {
         for (item of containerItems) {
             item.classList.remove('grid-item-hover');
         }
+        
+        popUp()
     });
 
 
 
 };
 
-popUp() {
-    
+function popUp() {
+
 }
 
 
