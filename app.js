@@ -1,7 +1,16 @@
 const container = document.querySelector('#container');
-const clearGridBtn = document.querySelector('#clear-grid-btn')
+const clearGridBtn = document.querySelector('#clear-grid-btn');
+const dimensionsBtn = document.querySelector('#dimensions-btn')
 
-function makeGrid(rows, cols) {
+let modal = document.querySelector('#modal');
+// use clearGridBtn
+const span = document.querySelector('.close');
+
+
+const inputValue = document.querySelector('#dimensions').value;
+
+
+function makeGrid(rows=16, cols=16) {
 
     let cell;
     container.style.setProperty('--grid-rows', rows);
@@ -25,19 +34,32 @@ function makeGrid(rows, cols) {
             item.classList.remove('grid-item-hover');
         }
         
-        popUp()
+        modalPopUp()
     });
 
+    function modalPopUp() {
 
+        clearGridBtn.addEventListener('click', function() {
+            modal.style.display = "block";
+        });
+    
+        span.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+    
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        })
+    
+        dimensionsBtn.addEventListener('click', function() {
+            makeGrid(inputValue, inputValue);
+        });
+    
+    }
 
 };
 
-function popUp() {
-
-}
-
-
-
-makeGrid (16, 16);
-
+makeGrid()
 
