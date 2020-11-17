@@ -1,16 +1,7 @@
 const container = document.querySelector('#container');
 const clearGridBtn = document.querySelector('#clear-grid-btn');
-const dimensionsBtn = document.querySelector('#dimensions-btn')
 
-let modal = document.querySelector('#modal');
-// use clearGridBtn
-const span = document.querySelector('.close');
-
-
-const inputValue = document.querySelector('#dimensions').value;
-
-
-function makeGrid(rows=16, cols=16) {
+function makeGrid(rows = 16, cols = 16) {
 
     let cell;
     container.style.setProperty('--grid-rows', rows);
@@ -21,45 +12,48 @@ function makeGrid(rows=16, cols=16) {
         container.appendChild(cell).className = "grid-item";
     };
 
-    const containerItems = container.querySelectorAll('div');
-    
+
+};
+makeGrid()
+
+
+let containerItems = container.querySelectorAll('.grid-item');
+
+function paint() {
     for (let i = 0; i < containerItems.length; i++) {
-        containerItems[i].addEventListener('mouseenter', function() {
+        containerItems[i].addEventListener('mouseenter', function () {
             containerItems[i].classList.add('grid-item-hover');
         });
     }
+}
 
-    clearGridBtn.addEventListener('click', function() {
-        for (item of containerItems) {
-            item.classList.remove('grid-item-hover');
-        }
-        
-        modalPopUp()
-    });
-
-    function modalPopUp() {
-
-        clearGridBtn.addEventListener('click', function() {
-            modal.style.display = "block";
+function paintProperly() {
+    for (let item of containerItems) {
+        item.addEventListener('mouseenter', function() {
+            item.classList.add('grid-item-hover');
         });
-    
-        span.addEventListener('click', function() {
-            modal.style.display = "none";
-        });
-    
-        window.addEventListener('click', function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        })
-    
-        dimensionsBtn.addEventListener('click', function() {
-            makeGrid(inputValue, inputValue);
-        });
-    
     }
+}
+paintProperly()
 
-};
 
-makeGrid()
+function clearGrid() {
+    for (item of containerItems) {
+        item.classList.remove('grid-item-hover');
+    }
+}
+
+
+function remakeGrid() {
+    container.innerHTML = '';
+    const inputValue = prompt("enter dimension");
+    makeGrid(inputValue, inputValue);
+    containerItems = container.querySelectorAll('.grid-item');
+    paintProperly();    
+}
+
+clearGridBtn.addEventListener('click', function() {
+    remakeGrid();
+});
+
 
