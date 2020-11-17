@@ -46,8 +46,12 @@ function clearGrid() {
 
 function remakeGrid() {
     container.innerHTML = '';
-    const inputValue = prompt("enter dimension");
-    makeGrid(inputValue, inputValue);
+    const inputValue = parseInt(prompt("enter dimension (max dimension = 100)"));
+    if (inputValue <= 100) {
+        makeGrid(inputValue, inputValue);
+    } else {
+        document.write("ERROR")
+    }
     containerItems = container.querySelectorAll('.grid-item');
     paintProperly();    
 }
